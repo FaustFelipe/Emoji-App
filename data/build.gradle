@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk compilesdk_version
+
+    defaultConfig {
+        minSdk minsdk_version
+        targetSdk compilesdk_version
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    // Core KTX
+    implementation "androidx.core:core-ktx:$corektx_version"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
+    // Moshi
+    implementation "com.squareup.moshi:moshi:$moshi_version"
+    implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+
+    // Okhttp
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version") {
+        exclude group: "com.google.guava", module: "guava"
+    }
+
+    // Koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-test:$koin_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // Tests
+    testImplementation 'junit:junit:4.+'
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockito_version"
+    testImplementation "androidx.arch.core:core-testing:$coretesting_version"
+}
