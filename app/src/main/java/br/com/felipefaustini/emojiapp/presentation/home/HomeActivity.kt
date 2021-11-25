@@ -36,4 +36,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
         viewModel.getUser()
     }
 
+    fun onClickGetEmoji(view: View) {
+        viewModel.getEmoji()
+    }
+
 }

@@ -1,10 +1,12 @@
 package br.com.felipefaustini.data.repository
 
 import br.com.felipefaustini.data.api.EmojiApi
+import br.com.felipefaustini.data.database.dao.EmojiDao
 import br.com.felipefaustini.data.database.dao.UserDao
 import br.com.felipefaustini.data.models.db.DBUser
 import br.com.felipefaustini.data.models.mappers.UserMapper
 import br.com.felipefaustini.data.models.response.UserResponse
+import br.com.felipefaustini.domain.models.Emoji
 import br.com.felipefaustini.domain.models.User
 import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
@@ -38,6 +40,9 @@ class EmojiRepositoryImplTest {
     @Mock
     private lateinit var userDao: UserDao
 
+    @Mock
+    private lateinit var emojiDao: EmojiDao
+
     private lateinit var repository: EmojiRepositoryImpl
 
     private val dispatcher = TestCoroutineDispatcher()
@@ -47,6 +52,7 @@ class EmojiRepositoryImplTest {
         repository = EmojiRepositoryImpl(
             emojiApi,
             userDao,
+            emojiDao,
             dispatcher
         )
     }
@@ -182,5 +188,36 @@ class EmojiRepositoryImplTest {
         assertEquals(expected, result)
     }
     /* endregion isExisting */
+
+    /* region getEmojis */
+    @Test
+    fun getEmojis_shouldReturnAValidListOfEmojis() = dispatcher.runBlockingTest {
+        val expected = Result.Success(listOf(Emoji(name = "key", url = "url")))
+
+        whenever(emojiApi.getEmojis())
+            .thenReturn(Response.success(mapOf(Pair("key", "url"))))
+
+        val result = repository.getEmojis().first()
+
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun getEmojis_shouldReturnConnectionError() = dispatcher.runBlockingTest {
+        val expected = Result.Error(ErrorEntity.Unauthorized)
+
+        whenever(emojiApi.getEmojis())
+            .thenReturn(
+                Response.error(
+                    401,
+                    "".toResponseBody("application/json".toMediaTypeOrNull())
+                )
+            )
+
+        val response = repository.getEmojis().first()
+
+        assertEquals(expected, response)
+    }
+    /* endregion getEmojis */
 
 }

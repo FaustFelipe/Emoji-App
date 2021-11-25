@@ -2,6 +2,7 @@ package br.com.felipefaustini.data.di
 
 import android.content.Context
 import br.com.felipefaustini.data.database.EmojiDatabase
+import br.com.felipefaustini.data.database.dao.EmojiDao
 import br.com.felipefaustini.data.database.dao.UserDao
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -19,5 +20,11 @@ val databaseModule = module {
     }
 
     single { provideUserDao(get()) }
+
+    fun provideEmojiDao(database: EmojiDatabase): EmojiDao {
+        return database.emojiDao()
+    }
+
+    single { provideEmojiDao(get()) }
 
 }

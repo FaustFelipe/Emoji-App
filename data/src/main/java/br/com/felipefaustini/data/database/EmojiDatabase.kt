@@ -4,19 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import br.com.felipefaustini.data.database.dao.EmojiDao
 import br.com.felipefaustini.data.database.dao.UserDao
 import br.com.felipefaustini.data.database.dbutils.DB_NAME
 import br.com.felipefaustini.data.database.dbutils.DB_VERSION
+import br.com.felipefaustini.data.models.db.DBEmoji
 import br.com.felipefaustini.data.models.db.DBUser
 
 @Database(
-    entities = [DBUser::class],
+    entities = [DBUser::class, DBEmoji::class],
     version = DB_VERSION,
     exportSchema = false
 )
 abstract class EmojiDatabase: RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun emojiDao(): EmojiDao
 
     companion object {
         @Volatile

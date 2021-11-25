@@ -28,9 +28,11 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_emoji"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/app_120dp"
+                android:layout_height="@dimen/app_120dp"
                 tools:src="@tools:sample/avatars"
+                app:imageUrl="@{viewModel.emojiLiveData}"
+                android:scaleType="centerCrop"
                 app:layout_constraintVertical_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/main_random_emoji"
                 android:layout_marginTop="@dimen/app_8dp"
+                android:onClick="@{view::onClickGetEmoji}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_emoji"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,21 +99,10 @@
                 android:src="@drawable/ic_search_black_24"
                 android:layout_marginEnd="@dimen/app_24dp"
                 android:onClick="@{view::onClickSearchUser}"
-                app:invisibility="@{viewModel.loadingLiveData}"
                 app:layout_constraintStart_toEndOf="@+id/edt_search_user"
                 app:layout_constraintTop_toTopOf="@+id/edt_search_user"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/edt_search_user"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="@dimen/app_0dp"
-                android:layout_height="@dimen/app_0dp"
-                app:visibility="@{viewModel.loadingLiveData}"
-                app:layout_constraintStart_toStartOf="@+id/btn_search_user"
-                app:layout_constraintTop_toTopOf="@+id/btn_search_user"
-                app:layout_constraintEnd_toEndOf="@+id/btn_search_user"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_search_user"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_avatar_list"

@@ -7,6 +7,10 @@ import retrofit2.http.Path
 
 interface EmojiApi {
 
+    @GET("emojis")
+    suspend fun getEmojis(
+    ): Response<Map<String, String>>
+
     @GET("users/{username}")
     suspend fun getUser(
         @Path("username") username: String

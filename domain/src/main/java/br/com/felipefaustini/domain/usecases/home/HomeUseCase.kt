@@ -1,5 +1,6 @@
 package br.com.felipefaustini.domain.usecases.home
 
+import br.com.felipefaustini.domain.models.Emoji
 import br.com.felipefaustini.domain.models.User
 import br.com.felipefaustini.domain.repository.EmojiRepository
 import br.com.felipefaustini.domain.utils.ErrorEntity
@@ -28,6 +29,23 @@ class HomeUseCase(
                             .collect()
                     }
                 }
+        }
+    }
+
+    override suspend fun getEmoji(): Flow<Result<List<Emoji>>> {
+        val emojis = repository.findAllEmojis().first()
+
+        return if (emojis.isEmpty()) {
+            repository.getEmojis().onEach {
+                if (it is Result.Success) {
+                    it.data.forEach { emoji ->
+                        repository.saveEmojis(emoji.name, emoji.url).collect()
+                    }
+                }
+            }
+        } else {
+            repository.findAllEmojis()
+                .map { Result.Success(it) }
         }
     }
 
