@@ -47,6 +47,9 @@ android {
 
 dependencies {
 
+    api project(path: ':domain')
+    api project(path: ':data')
+
     // Core KTX
     implementation "androidx.core:core-ktx:$corektx_version"
 

@@ -4,8 +4,10 @@
     <!-- region main -->
     <string name="main_random_emoji">Random emoji</string>
     <string name="main_emoji_list">Emoji list</string>
-    <string name="main_hint_search_emoji">Search for emoji</string>
+    <string name="main_hint_search_user">Search for user</string>
     <string name="main_avatar_list">Avatar list</string>
     <string name="main_google_repos">Google Repos</string>
+    <string name="main_invalid_username">Invalid username. Enter a valid username!</string>
+    <string name="main_success_searching_for_user">User was found successfully!</string>
     <!-- endregion main -->
 </resources>

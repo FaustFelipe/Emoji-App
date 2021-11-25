@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.home.HomeActivity">
+
+    <data>
+
+        <variable
+            name="view"
+            type="br.com.felipefaustini.emojiapp.presentation.home.HomeActivity" />
+
+        <variable
+            name="viewModel"
+            type="br.com.felipefaustini.emojiapp.presentation.home.HomeViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_emoji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@tools:sample/avatars"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_random_emoji"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_random_emoji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_random_emoji"
+                android:layout_marginTop="@dimen/app_8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_emoji"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_emoji_list"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_emoji_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_emoji_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_random_emoji"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/space"/>
+
+            <Space
+                android:id="@+id/space"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/app_40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_emoji_list"
+                app:layout_constraintBottom_toTopOf="@+id/edt_search_user"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edt_search_user"
+                android:layout_width="@dimen/app_0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/main_hint_search_user"
+                android:layout_marginStart="@dimen/app_24dp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/space"
+                app:layout_constraintEnd_toStartOf="@+id/btn_search_user"
+                app:layout_constraintBottom_toTopOf="@+id/btn_avatar_list">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_search_user_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1"
+                    android:text="@={viewModel.username}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_search_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search_black_24"
+                android:layout_marginEnd="@dimen/app_24dp"
+                android:onClick="@{view::onClickSearchUser}"
+                app:invisibility="@{viewModel.loadingLiveData}"
+                app:layout_constraintStart_toEndOf="@+id/edt_search_user"
+                app:layout_constraintTop_toTopOf="@+id/edt_search_user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/edt_search_user"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="@dimen/app_0dp"
+                android:layout_height="@dimen/app_0dp"
+                app:visibility="@{viewModel.loadingLiveData}"
+                app:layout_constraintStart_toStartOf="@+id/btn_search_user"
+                app:layout_constraintTop_toTopOf="@+id/btn_search_user"
+                app:layout_constraintEnd_toEndOf="@+id/btn_search_user"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_search_user"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_avatar_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_avatar_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edt_search_user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_google_repos"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_google_repos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_google_repos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_avatar_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>
