@@ -5,5 +5,5 @@ import br.com.felipefaustini.domain.usecases.home.IHomeUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
-    factory<IHomeUseCase> { HomeUseCase(repository = get()) }
+    single<IHomeUseCase> { HomeUseCase(repository = get()) }
 }

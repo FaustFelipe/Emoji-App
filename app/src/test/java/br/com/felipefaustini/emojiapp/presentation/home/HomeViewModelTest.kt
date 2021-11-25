@@ -38,7 +38,7 @@ class HomeViewModelTest {
 
     /* region getUser */
     @Test
-    fun getUser_ifInvalidInputReturnInvalidMessage() {
+    fun getUser_ifInvalidInputReturnInvalidMessage() = runBlockingTest {
         val expected = Unit
         homeViewModel.username = ""
 
@@ -53,7 +53,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun getUser_shouldAnotherError() {
+    fun getUser_shouldAnotherError() = runBlockingTest {
         val expected = "Error"
         homeViewModel.username = "faustfelipe"
 
@@ -68,7 +68,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun getUser_shouldReturnSuccess() {
+    fun getUser_shouldReturnSuccess() = runBlockingTest {
         val expected = Unit
         homeViewModel.username = "faustfelipe"
 

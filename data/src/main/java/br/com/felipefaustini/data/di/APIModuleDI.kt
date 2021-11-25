@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import br.com.felipefaustini.data.BuildConfig
+import br.com.felipefaustini.data.database.dao.UserDao
 import br.com.felipefaustini.data.utils.DateConverter
 import com.squareup.moshi.Moshi
 import org.koin.dsl.module
@@ -60,15 +61,5 @@ val networkModule = module {
     }
 
     single { provideEmojiApi(retrofit = get()) }
-
-}
-
-val repositoryModule = module {
-
-    fun provideRepositoryModule(emojiApi: EmojiApi): EmojiRepository {
-        return EmojiRepositoryImpl(emojiApi, Dispatchers.IO)
-    }
-
-    single { provideRepositoryModule(emojiApi = get()) }
 
 }

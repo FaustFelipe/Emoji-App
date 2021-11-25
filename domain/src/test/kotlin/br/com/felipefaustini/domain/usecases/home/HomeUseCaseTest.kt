@@ -15,6 +15,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.verifyZeroInteractions
 import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
@@ -33,30 +36,58 @@ class HomeUseCaseTest {
         homeUseCase = HomeUseCase(repository)
     }
 
-    /* region user */
+    /* region getUser */
     @Test
-    fun getUser_checkIfUserWasReturned() = dispatcher.runBlockingTest {
-        val expected = Result.Success(User(name = "Felipe Faustini"))
+    fun getUser_checkIfUsernameIsValid() = dispatcher.runBlockingTest {
+        val expected = Result.Error(ErrorEntity.InvalidFields)
 
-        whenever(repository.getUser("faustfelipe"))
-            .thenReturn(flowOf(Result.Success(User(name = "Felipe Faustini"))))
+        val result = homeUseCase.getUser("").first()
 
-        val result = homeUseCase.getUser("faustfelipe").first()
-
+        verifyZeroInteractions(repository)
         assertEquals(expected, result)
     }
 
     @Test
-    fun getUser_checkIfErrorWasReturned() = dispatcher.runBlockingTest {
-        val expected = Result.Error(ErrorEntity.Unknown)
+    fun getUser_userDoesntExistShouldRequestAndSaveIt() = dispatcher.runBlockingTest {
+        val expected = Result.Success(User(name = name))
 
-        whenever(repository.getUser("faustfelipe"))
-            .thenReturn(flowOf(Result.Error(ErrorEntity.Unknown)))
+        whenever(repository.isExisting(username))
+            .thenReturn(flowOf(false))
+        whenever(repository.getUser(username))
+            .thenReturn(flowOf(Result.Success(User(name = name))))
+        whenever(repository.saveUser(User(name = name)))
+            .thenReturn(flowOf(Result.Success(Unit)))
 
-        val result = homeUseCase.getUser("faustfelipe").first()
+        val result = homeUseCase.getUser(username).first()
 
+        verify(repository).isExisting(username)
+        verify(repository).getUser(username)
+        verify(repository).saveUser(User(name = name))
+        verifyNoMoreInteractions(repository)
         assertEquals(expected, result)
     }
-    /* endregion user */
+
+    @Test
+    fun getUser_userExistsShouldGetUserFromDB() = dispatcher.runBlockingTest {
+        val expected = Result.Success(User(name = name))
+
+        whenever(repository.isExisting(username))
+            .thenReturn(flowOf(true))
+        whenever(repository.findUser(username))
+            .thenReturn(flowOf(Result.Success(User(name = name))))
+
+        val result = homeUseCase.getUser(username).first()
+
+        verify(repository).isExisting(username)
+        verify(repository).findUser(username)
+        verifyNoMoreInteractions(repository)
+        assertEquals(expected, result)
+    }
+    /* endregion getUser */
+
+    companion object {
+        private val name = "Felipe Faustini"
+        private val username = "faustfelipe"
+    }
 
 }

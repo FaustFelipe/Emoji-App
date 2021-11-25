@@ -1,6 +1,7 @@
 package br.com.felipefaustini.emojiapp
 
 import android.app.Application
+import br.com.felipefaustini.data.di.databaseModule
 import br.com.felipefaustini.data.di.networkModule
 import br.com.felipefaustini.data.di.repositoryModule
 import br.com.felipefaustini.domain.di.useCasesModule
@@ -26,6 +27,7 @@ class EmojiApplication: Application() {
                 listOf(
                     networkModule,
                     repositoryModule,
+                    databaseModule,
                     useCasesModule,
                     viewModelModule
                 )

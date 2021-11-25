@@ -1,7 +1,6 @@
 package br.com.felipefaustini.domain.utils
 
 sealed class ErrorEntity {
-    object Network: ErrorEntity()
     object InvalidFields: ErrorEntity()
     object Unauthorized: ErrorEntity()
     object ServiceUnavailable: ErrorEntity()
