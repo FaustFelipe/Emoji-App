@@ -21,6 +21,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
     }
 
     override fun setupObservables() {
+        super.setupObservables()
+
         viewModel.errorUnitLiveData.observe(this) {
             binding?.edtSearchUser?.error = getString(R.string.main_invalid_username)
         }
