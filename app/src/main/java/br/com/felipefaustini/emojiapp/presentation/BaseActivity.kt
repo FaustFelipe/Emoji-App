@@ -24,6 +24,7 @@ abstract class BaseActivity<A: ViewDataBinding, V: BaseViewModel>(
 
         setupViews()
         setupObservables()
+        viewModel?.onInit()
     }
 
     protected abstract fun setupViews()

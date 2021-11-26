@@ -8,7 +8,6 @@ import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.emojiapp.MainCoroutineRule
 import br.com.felipefaustini.emojiapp.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals

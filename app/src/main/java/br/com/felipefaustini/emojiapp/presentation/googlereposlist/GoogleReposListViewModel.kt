@@ -26,7 +26,7 @@ class GoogleReposListViewModel @Inject constructor(
 
     var isLoading: Boolean = false
 
-    init {
+    override fun onInit() {
         loadRepos()
     }
 

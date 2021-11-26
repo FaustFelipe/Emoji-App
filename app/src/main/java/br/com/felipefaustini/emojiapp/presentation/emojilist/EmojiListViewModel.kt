@@ -18,7 +18,7 @@ class EmojiListViewModel @Inject constructor(
     private val _emojisLiveData = MutableLiveData<List<Emoji>>()
     val emojisLiveData: LiveData<List<Emoji>> = _emojisLiveData
 
-    init {
+    override fun onInit() {
         loadEmojis()
     }
 
@@ -30,7 +30,8 @@ class EmojiListViewModel @Inject constructor(
 
                     }
                     is Result.Success -> {
-                        _emojisLiveData.postValue(result.data)
+                        val data = result.data
+                        _emojisLiveData.postValue(data)
                     }
                 }
             }

@@ -19,6 +19,10 @@ open class BaseViewModel: ViewModel() {
     protected val _errorUnitLiveData = EventLiveData<Unit>()
     val errorUnitLiveData: LiveData<Unit> = _errorUnitLiveData
 
+    open fun onInit() {
+        println("onInit ViewModel")
+    }
+
     protected fun launchDataLoad(block: suspend () -> Unit): Job {
         return viewModelScope.launch {
             try {

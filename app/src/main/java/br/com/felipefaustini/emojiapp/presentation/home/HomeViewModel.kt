@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
     private val _emojiLiveData = MutableLiveData<Emoji>()
     val emojiLiveData: LiveData<Emoji> = _emojiLiveData
 
-    init {
+    override fun onInit() {
         getEmoji()
     }
 
