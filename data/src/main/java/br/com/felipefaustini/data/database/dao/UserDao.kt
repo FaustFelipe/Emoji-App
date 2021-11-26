@@ -12,6 +12,9 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(dbUser: DBUser): Long
 
+    @Query("SELECT * FROM users")
+    suspend fun findAll(): List<DBUser>
+
     @Query("SELECT * FROM users WHERE login = :login LIMIT 1")
     suspend fun findUser(login: String): DBUser
 

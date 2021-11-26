@@ -11,6 +11,21 @@ class HomeUseCase(
     private val repository: EmojiRepository
 ) : IHomeUseCase {
 
+    override suspend fun isExitingAUser(): Flow<Result<Boolean>> {
+        val users = repository.findAllUsers().first()
+        return flow {
+            if (users is Result.Success) {
+                if (users.data.isNotEmpty()) {
+                    emit(Result.Success(true))
+                } else {
+                    emit(Result.Success(false))
+                }
+            } else {
+                emit(Result.Error(ErrorEntity.Unknown))
+            }
+        }
+    }
+
     override suspend fun getUser(username: String): Flow<Result<User>> {
         if (username.isEmpty()) {
             return flow { emit(Result.Error(ErrorEntity.InvalidFields)) }

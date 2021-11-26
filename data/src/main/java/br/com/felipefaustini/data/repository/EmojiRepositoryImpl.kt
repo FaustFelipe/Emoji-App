@@ -22,6 +22,22 @@ class EmojiRepositoryImpl(
     private val coroutineContext: CoroutineContext
 ): EmojiRepository {
 
+    override fun findAllUsers(): Flow<Result<List<User>>> = flow<Result<List<User>>> {
+        val request = userDao.findAll().map {
+            UserMapper.map(it)
+        }
+        if (request.isNotEmpty()) {
+            emit(Result.Success(request))
+        } else {
+            emit(Result.Success(emptyList()))
+        }
+    }
+        .catch {
+            it.printStackTrace()
+            emit(Result.Error(ErrorEntity.Unknown))
+        }
+        .flowOn(coroutineContext)
+
     override fun getUser(username: String): Flow<Result<User>> = flow {
         val request = api.getUser(username)
         val response = handleResponseCall(request) {
@@ -106,7 +122,11 @@ class EmojiRepositoryImpl(
         val result = emojiDao.findAll().map {
             EmojiMapper.map(it)
         }
-        emit(result)
+        if (result.isEmpty()) {
+            emit(emptyList())
+        } else {
+            emit(result)
+        }
     }
         .catch {
             it.printStackTrace()

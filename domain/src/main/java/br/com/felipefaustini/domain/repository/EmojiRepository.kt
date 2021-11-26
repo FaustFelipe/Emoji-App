@@ -6,6 +6,7 @@ import br.com.felipefaustini.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 
 interface EmojiRepository {
+    fun findAllUsers(): Flow<Result<List<User>>>
     fun getUser(username: String): Flow<Result<User>>
     fun saveUser(user: User): Flow<Result<Unit>>
     fun findUser(login: String): Flow<Result<User>>

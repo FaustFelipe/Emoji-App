@@ -22,6 +22,13 @@ class HomeViewModel(
     private val _emojiLiveData = MutableLiveData<Emoji>()
     val emojiLiveData: LiveData<Emoji> = _emojiLiveData
 
+    private val _enableAvatarListReposLiveData = EventLiveData<Boolean>()
+    val enableAvatarListReposLiveData: LiveData<Boolean> = _enableAvatarListReposLiveData
+
+    init {
+        checkIsExistingUser()
+    }
+
     fun getUser() {
         launchDataLoad {
             homeUseCase.getUser(username).collect {
@@ -34,6 +41,7 @@ class HomeViewModel(
                     }
                     is Result.Success -> {
                         _userSavedLiveData.postValue(Unit)
+                        _enableAvatarListReposLiveData.postValue(true)
                     }
                 }
             }
@@ -50,6 +58,21 @@ class HomeViewModel(
                     is Result.Success -> {
                         val emoji = result.data.random()
                         _emojiLiveData.postValue(emoji)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun checkIsExistingUser() {
+        launchDataLoad {
+            homeUseCase.isExitingAUser().collect {
+                when(val result = it) {
+                    is Result.Error -> {
+                        _errorLiveData.postValue("Error") // TODO change it
+                    }
+                    is Result.Success -> {
+                        _enableAvatarListReposLiveData.postValue(result.data)
                     }
                 }
             }

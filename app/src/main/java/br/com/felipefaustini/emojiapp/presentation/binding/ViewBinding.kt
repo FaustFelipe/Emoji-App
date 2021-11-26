@@ -24,4 +24,12 @@ object ViewBinding {
         }
     }
 
+    @JvmStatic
+    @BindingAdapter("app:enableButtons")
+    fun enableButtons(view: View, condition: LiveData<Boolean>) {
+        if (condition.value != null) {
+            view.isEnabled = condition.value!!
+        }
+    }
+
 }
