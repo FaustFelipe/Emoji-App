@@ -5,9 +5,11 @@ import br.com.felipefaustini.data.database.dao.EmojiDao
 import br.com.felipefaustini.data.database.dao.UserDao
 import br.com.felipefaustini.data.models.db.DBUser
 import br.com.felipefaustini.data.models.mappers.EmojiMapper
+import br.com.felipefaustini.data.models.mappers.ReposMapper
 import br.com.felipefaustini.data.models.mappers.UserMapper
 import br.com.felipefaustini.data.utils.handleResponseCall
 import br.com.felipefaustini.domain.models.Emoji
+import br.com.felipefaustini.domain.models.Repos
 import br.com.felipefaustini.domain.models.User
 import br.com.felipefaustini.domain.repository.EmojiRepository
 import br.com.felipefaustini.domain.utils.ErrorEntity
@@ -133,5 +135,19 @@ class EmojiRepositoryImpl(
             emit(emptyList())
         }
         .flowOn(coroutineContext)
+
+    override fun getUserRepos(username: String, page: Int, perPage: Int): Flow<Result<List<Repos>>> =
+        flow {
+            val request = api.getUserRepos(username, page, perPage)
+            val response = handleResponseCall(request) {
+                it.map { repo -> ReposMapper.map(repo) }
+            }
+            emit(response)
+        }
+            .catch {
+                it.printStackTrace()
+                emit(Result.Error(ErrorEntity.Unknown))
+            }
+            .flowOn(coroutineContext)
 
 }

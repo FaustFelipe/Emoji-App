@@ -25,6 +25,11 @@
         <activity
             android:name=".presentation.emojilist.EmojiListActivity"
             android:exported="true"/>
+
+        <activity
+            android:name=".presentation.googlereposlist.GoogleReposListActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

@@ -18,13 +18,9 @@ class EmojiListActivity: BaseActivity<ActivityEmojiListBinding, EmojiListViewMod
     override fun setupViews() {
         binding?.viewModel = viewModel
 
-        binding?.recyclerEmoji?.adapter = adapter
+        setupRecycler()
 
-        binding?.swipeRefresh?.isRefreshing = false
-        binding?.swipeRefresh?.setOnRefreshListener {
-            viewModel.loadEmojis()
-            binding?.swipeRefresh?.isRefreshing = false
-        }
+        setupSwipeRefresh()
     }
 
     override fun setupObservables() {
@@ -32,6 +28,18 @@ class EmojiListActivity: BaseActivity<ActivityEmojiListBinding, EmojiListViewMod
 
         viewModel.emojisLiveData.observe(this) {
             adapter.setData(it)
+        }
+    }
+
+    private fun setupRecycler() {
+        binding?.recyclerEmoji?.adapter = adapter
+    }
+
+    private fun setupSwipeRefresh() {
+        binding?.swipeRefresh?.isRefreshing = false
+        binding?.swipeRefresh?.setOnRefreshListener {
+            viewModel.loadEmojis()
+            binding?.swipeRefresh?.isRefreshing = false
         }
     }
 

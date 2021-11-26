@@ -6,6 +6,7 @@ import br.com.felipefaustini.emojiapp.R
 import br.com.felipefaustini.emojiapp.databinding.ActivityHomeBinding
 import br.com.felipefaustini.emojiapp.presentation.BaseActivity
 import br.com.felipefaustini.emojiapp.presentation.emojilist.EmojiListActivity
+import br.com.felipefaustini.emojiapp.presentation.googlereposlist.GoogleReposListActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.activity_home) {
@@ -50,7 +51,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
     }
 
     fun goToReposList(view: View) {
-
+        GoogleReposListActivity.open(this)
     }
 
 }

@@ -1,6 +1,7 @@
 package br.com.felipefaustini.domain.repository
 
 import br.com.felipefaustini.domain.models.Emoji
+import br.com.felipefaustini.domain.models.Repos
 import br.com.felipefaustini.domain.models.User
 import br.com.felipefaustini.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
@@ -14,4 +15,5 @@ interface EmojiRepository {
     fun getEmojis(): Flow<Result<List<Emoji>>>
     fun saveEmojis(key: String, value: String): Flow<Result<Unit>>
     fun findAllEmojis(): Flow<List<Emoji>>
+    fun getUserRepos(username: String, page: Int, perPage: Int): Flow<Result<List<Repos>>>
 }
