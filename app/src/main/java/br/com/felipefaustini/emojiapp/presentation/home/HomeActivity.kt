@@ -5,6 +5,7 @@ import androidx.core.widget.doOnTextChanged
 import br.com.felipefaustini.emojiapp.R
 import br.com.felipefaustini.emojiapp.databinding.ActivityHomeBinding
 import br.com.felipefaustini.emojiapp.presentation.BaseActivity
+import br.com.felipefaustini.emojiapp.presentation.emojilist.EmojiListActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.activity_home) {
@@ -38,6 +39,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(R.layout.a
 
     fun onClickGetEmoji(view: View) {
         viewModel.getEmoji()
+    }
+
+    fun goToEmojiList(view: View) {
+        EmojiListActivity.open(this)
+    }
+
+    fun goToAvatarList(view: View) {
+
+    }
+
+    fun goToReposList(view: View) {
+
     }
 
 }

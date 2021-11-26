@@ -7,7 +7,6 @@ import br.com.felipefaustini.domain.usecases.home.IHomeUseCase
 import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.emojiapp.presentation.BaseViewModel
-import br.com.felipefaustini.emojiapp.utils.EventLiveData
 import kotlinx.coroutines.flow.collect
 
 class HomeViewModel(
@@ -22,11 +21,8 @@ class HomeViewModel(
     private val _emojiLiveData = MutableLiveData<Emoji>()
     val emojiLiveData: LiveData<Emoji> = _emojiLiveData
 
-    private val _enableAvatarListReposLiveData = EventLiveData<Boolean>()
-    val enableAvatarListReposLiveData: LiveData<Boolean> = _enableAvatarListReposLiveData
-
     init {
-        checkIsExistingUser()
+        getEmoji()
     }
 
     fun getUser() {
@@ -41,7 +37,6 @@ class HomeViewModel(
                     }
                     is Result.Success -> {
                         _userSavedLiveData.postValue(Unit)
-                        _enableAvatarListReposLiveData.postValue(true)
                     }
                 }
             }
@@ -58,21 +53,6 @@ class HomeViewModel(
                     is Result.Success -> {
                         val emoji = result.data.random()
                         _emojiLiveData.postValue(emoji)
-                    }
-                }
-            }
-        }
-    }
-
-    private fun checkIsExistingUser() {
-        launchDataLoad {
-            homeUseCase.isExitingAUser().collect {
-                when(val result = it) {
-                    is Result.Error -> {
-                        _errorLiveData.postValue("Error") // TODO change it
-                    }
-                    is Result.Success -> {
-                        _enableAvatarListReposLiveData.postValue(result.data)
                     }
                 }
             }
