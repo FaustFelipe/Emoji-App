@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseActivity<A: ViewDataBinding, V: BaseViewModel>(
-    @LayoutRes private val layoutRes: Int = 0
+    @LayoutRes private val layoutRes: Int
 ): AppCompatActivity() {
 
     protected var binding: A? = null

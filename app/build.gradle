@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -52,6 +53,7 @@ dependencies {
 
     // Core KTX
     implementation "androidx.core:core-ktx:$corektx_version"
+    implementation "androidx.activity:activity-ktx:$activityktx_version"
 
     // AppCompat
     implementation "androidx.appcompat:appcompat:$appcompat_version"
@@ -62,10 +64,11 @@ dependencies {
     // Constraint
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
-    // Koin
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
-    implementation "org.koin:koin-test:$koin_version"
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltviewmodelcompiler_version"
+    kapt "androidx.hilt:hilt-compiler:$hiltviewmodelcompiler_version"
 
     // Architecture Components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_lifecycle_version"

@@ -15,9 +15,10 @@ import br.com.felipefaustini.domain.repository.EmojiRepository
 import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class EmojiRepositoryImpl(
+class EmojiRepositoryImpl @Inject constructor(
     private val api: EmojiApi,
     private val userDao: UserDao,
     private val emojiDao: EmojiDao,

@@ -4,8 +4,9 @@ import br.com.felipefaustini.domain.models.Repos
 import br.com.felipefaustini.domain.repository.EmojiRepository
 import br.com.felipefaustini.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class GoogleReposUseCase(
+class GoogleReposUseCase @Inject constructor(
     private val repository: EmojiRepository
 ): IGoogleReposUseCase {
 

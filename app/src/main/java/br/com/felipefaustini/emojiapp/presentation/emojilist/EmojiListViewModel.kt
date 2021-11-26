@@ -6,9 +6,12 @@ import br.com.felipefaustini.domain.models.Emoji
 import br.com.felipefaustini.domain.usecases.emojilist.IEmojiListUseCase
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.emojiapp.presentation.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
-class EmojiListViewModel(
+@HiltViewModel
+class EmojiListViewModel @Inject constructor(
     private val emojiListUseCase: IEmojiListUseCase
 ): BaseViewModel() {
 

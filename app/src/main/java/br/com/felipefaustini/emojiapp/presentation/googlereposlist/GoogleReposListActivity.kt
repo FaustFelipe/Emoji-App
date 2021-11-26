@@ -2,18 +2,20 @@ package br.com.felipefaustini.emojiapp.presentation.googlereposlist
 
 import android.app.Activity
 import android.content.Intent
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.felipefaustini.emojiapp.R
 import br.com.felipefaustini.emojiapp.databinding.ActivityGoogleReposBinding
 import br.com.felipefaustini.emojiapp.presentation.BaseActivity
 import br.com.felipefaustini.emojiapp.presentation.PaginationListener
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GoogleReposListActivity: BaseActivity<ActivityGoogleReposBinding, GoogleReposListViewModel>(
     R.layout.activity_google_repos
 ) {
 
-    override val viewModel: GoogleReposListViewModel by viewModel()
+    override val viewModel: GoogleReposListViewModel by viewModels()
 
     private val adapter: GoogleReposAdapter = GoogleReposAdapter()
 

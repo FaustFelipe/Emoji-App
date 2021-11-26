@@ -5,8 +5,9 @@ import br.com.felipefaustini.domain.repository.EmojiRepository
 import br.com.felipefaustini.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class EmojiListUseCase(
+class EmojiListUseCase @Inject constructor(
     private val repository: EmojiRepository
 ): IEmojiListUseCase {
 

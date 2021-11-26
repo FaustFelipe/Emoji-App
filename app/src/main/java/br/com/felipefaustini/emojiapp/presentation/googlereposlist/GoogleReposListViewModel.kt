@@ -6,11 +6,14 @@ import br.com.felipefaustini.domain.models.Repos
 import br.com.felipefaustini.domain.usecases.googlerepos.IGoogleReposUseCase
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.emojiapp.presentation.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
+import javax.inject.Inject
 
-class GoogleReposListViewModel(
+@HiltViewModel
+class GoogleReposListViewModel @Inject constructor(
     private val googleReposUseCase: IGoogleReposUseCase
 ) : BaseViewModel() {
 

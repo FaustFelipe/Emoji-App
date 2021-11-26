@@ -2,16 +2,18 @@ package br.com.felipefaustini.emojiapp.presentation.emojilist
 
 import android.app.Activity
 import android.content.Intent
+import androidx.activity.viewModels
 import br.com.felipefaustini.emojiapp.R
 import br.com.felipefaustini.emojiapp.databinding.ActivityEmojiListBinding
 import br.com.felipefaustini.emojiapp.presentation.BaseActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EmojiListActivity: BaseActivity<ActivityEmojiListBinding, EmojiListViewModel>(
     R.layout.activity_emoji_list
 ) {
 
-    override val viewModel: EmojiListViewModel by viewModel()
+    override val viewModel: EmojiListViewModel by viewModels()
 
     private val adapter: EmojiListAdapter = EmojiListAdapter()
 

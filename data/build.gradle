@@ -59,9 +59,9 @@ dependencies {
         exclude group: "com.google.guava", module: "guava"
     }
 
-    // Koin
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-test:$koin_version"
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"

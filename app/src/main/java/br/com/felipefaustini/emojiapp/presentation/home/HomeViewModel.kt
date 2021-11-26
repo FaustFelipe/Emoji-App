@@ -7,9 +7,12 @@ import br.com.felipefaustini.domain.usecases.home.IHomeUseCase
 import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
 import br.com.felipefaustini.emojiapp.presentation.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val homeUseCase: IHomeUseCase
 ): BaseViewModel() {
 

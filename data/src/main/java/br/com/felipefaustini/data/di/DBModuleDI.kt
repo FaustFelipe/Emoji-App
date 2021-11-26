@@ -4,27 +4,33 @@ import android.content.Context
 import br.com.felipefaustini.data.database.EmojiDatabase
 import br.com.felipefaustini.data.database.dao.EmojiDao
 import br.com.felipefaustini.data.database.dao.UserDao
-import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-val databaseModule = module {
+@Module
+@InstallIn(SingletonComponent::class)
+class DBModuleDI {
 
-    fun provideDatabase(context: Context): EmojiDatabase {
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context): EmojiDatabase {
         return EmojiDatabase.getDatabase(context)
     }
 
-    single { provideDatabase(androidContext()) }
-
+    @Provides
+    @Singleton
     fun provideUserDao(database: EmojiDatabase): UserDao {
         return database.userDao()
     }
 
-    single { provideUserDao(get()) }
-
+    @Provides
+    @Singleton
     fun provideEmojiDao(database: EmojiDatabase): EmojiDao {
         return database.emojiDao()
     }
-
-    single { provideEmojiDao(get()) }
 
 }

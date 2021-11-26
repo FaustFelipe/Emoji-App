@@ -6,8 +6,9 @@ import br.com.felipefaustini.domain.repository.EmojiRepository
 import br.com.felipefaustini.domain.utils.ErrorEntity
 import br.com.felipefaustini.domain.utils.Result
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class HomeUseCase(
+class HomeUseCase @Inject constructor(
     private val repository: EmojiRepository
 ) : IHomeUseCase {
 

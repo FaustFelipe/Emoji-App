@@ -24,8 +24,7 @@ dependencies {
     // hamcrest
     testImplementation "org.hamcrest:hamcrest:$hamcrest_version"
 
-    // Koin
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-test:$koin_version"
+    // Hilt
+    implementation "javax.inject:javax.inject:$javainject_version"
 
 }

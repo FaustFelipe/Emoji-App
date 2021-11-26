@@ -5,11 +5,19 @@ import br.com.felipefaustini.data.database.dao.EmojiDao
 import br.com.felipefaustini.data.database.dao.UserDao
 import br.com.felipefaustini.data.repository.EmojiRepositoryImpl
 import br.com.felipefaustini.domain.repository.EmojiRepository
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
-import org.koin.dsl.module
+import javax.inject.Singleton
 
-val repositoryModule = module {
+@Module
+@InstallIn(SingletonComponent::class)
+class RepoModuleDI {
 
+    @Provides
+    @Singleton
     fun provideRepositoryModule(
         emojiApi: EmojiApi,
         userDao: UserDao,
@@ -17,7 +25,5 @@ val repositoryModule = module {
     ): EmojiRepository {
         return EmojiRepositoryImpl(emojiApi, userDao, emojiDao, Dispatchers.IO)
     }
-
-    single { provideRepositoryModule(emojiApi = get(), userDao = get(), emojiDao = get()) }
 
 }

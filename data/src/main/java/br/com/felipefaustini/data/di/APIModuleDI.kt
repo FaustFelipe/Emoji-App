@@ -1,22 +1,26 @@
 package br.com.felipefaustini.data.di
 
-import br.com.felipefaustini.data.api.EmojiApi
-import br.com.felipefaustini.data.repository.EmojiRepositoryImpl
-import br.com.felipefaustini.domain.repository.EmojiRepository
-import kotlinx.coroutines.Dispatchers
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import br.com.felipefaustini.data.BuildConfig
-import br.com.felipefaustini.data.database.dao.UserDao
+import br.com.felipefaustini.data.api.EmojiApi
 import br.com.felipefaustini.data.utils.DateConverter
 import com.squareup.moshi.Moshi
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
-val networkModule = module {
+@Module
+@InstallIn(SingletonComponent::class)
+class APIModuleDI {
 
+    @Provides
+    @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) {
@@ -25,11 +29,9 @@ val networkModule = module {
         return interceptor
     }
 
-    single { provideHttpLoggingInterceptor() }
-
-    fun provideOkhttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
-    ): OkHttpClient {
+    @Provides
+    @Singleton
+    fun provideOkhttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         val client = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
@@ -38,8 +40,8 @@ val networkModule = module {
         return client.build()
     }
 
-    single { provideOkhttpClient(loggingInterceptor = get()) }
-
+    @Provides
+    @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         val baseUrl = BuildConfig.BASE_URL
 
@@ -54,12 +56,10 @@ val networkModule = module {
             .build()
     }
 
-    single { provideRetrofit(client = get()) }
-
+    @Provides
+    @Singleton
     fun provideEmojiApi(retrofit: Retrofit): EmojiApi {
         return retrofit.create(EmojiApi::class.java)
     }
-
-    single { provideEmojiApi(retrofit = get()) }
 
 }
